@@ -1,44 +1,28 @@
-//--------------------------------------------------------------------------------
-// encoder.v
-// Konstantin Pavlov, pavlovconst@gmail.com
-//--------------------------------------------------------------------------------
-
-// INFO --------------------------------------------------------------------------------
-//  Digital encoder
-
-
-/*encoder E1(
-	.clk(),
-	.nrst(),
-	.incA(),
-	.incB(),
-	.plus1(),
-	.minus1()
-	);*/
-
-
-module encoder(clk,nrst,incA,incB,plus1,minus1);
-
-input wire clk;
-input wire nrst;
-input wire incA, incB;		// present input values
-output reg plus1 = 0, minus1 = 0;
-
-reg bufA = 0, bufB = 0;		// previous inputvalues
-
-always @ (posedge clk) begin
-	if (~nrst) begin
-		bufA <= 0;
-		bufB <= 0;
-		plus1 <= 0;
-		minus1 <= 0;
-	end
-	else begin
-		plus1 <= (bufA^incB)&~(incA^bufB);
-		minus1 <= (incA^bufB)&~(bufA^incB);
-		bufA <= incA;
-		bufB <= incB;
-	end		// if
-end
-
+module pes_encoder(en,i,y);
+  // declare
+  input en;
+  input [7:0]i;
+  // store and declare output values
+  output reg [2:0]y;
+  always @(en,i)
+  begin
+    if(en==1)
+      begin
+        // priority encoder
+        // if condition to choose 
+        // output based on priority. 
+        if(i[7]==1) y=3'b111;
+        else if(i[6]==1) y=3'b110;
+        else if(i[5]==1) y=3'b101;
+        else if(i[4]==1) y=3'b100;
+        else if(i[3]==1) y=3'b011;
+        else if(i[2]==1) y=3'b010;
+        else if(i[1]==1) y=3'b001;
+        else
+        y=3'b000;
+      end
+     // if enable is zero, there is
+     // an high impedance value. 
+    else y=3'bzzz;
+  end
 endmodule
