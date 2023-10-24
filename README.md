@@ -2,7 +2,7 @@
  <img src=https://github.com/Syedhasan7/pes_asic_class/assets/109273742/48e086c4-f9dc-4999-a642-022b538860c5)
 </p>
 
-                                                                                                   SYED HASAN
+                                                                                                
 
 # PULSE WIDTH MODULATION (PWM) GENERATOR
 ## Introduction 
